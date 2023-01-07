@@ -1,4 +1,4 @@
-export const convertDate = (date: Date) => {
+export const convertDate = (date: string) => {
   return new Date(date).toLocaleString("ru", {
     day: "numeric",
     month: "numeric",
