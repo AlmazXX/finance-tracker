@@ -3,3 +3,8 @@ export interface Transaction {
   category: string;
   amount: number;
 }
+
+export interface Category {
+  type: 'income' | 'expense',
+  name: string
+}
