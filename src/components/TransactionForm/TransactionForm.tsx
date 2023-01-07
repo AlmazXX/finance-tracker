@@ -1,10 +1,14 @@
-import { ChangeEvent, FC, FormEvent, useState } from "react";
+import { ChangeEvent, FC, FormEvent, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { currency } from "../../constants";
+import { convertDate } from "../../helpers";
+import { selectCategories } from "../../store/categSlice";
+import { fetchCategories } from "../../store/categThunk";
 import { Transaction } from "../../types";
 
 interface TransactionMutation {
-  type: string;
+  date: string;
   category: string;
   amount: string;
 }
@@ -15,7 +19,7 @@ interface Props {
 }
 
 const initialState = {
-  type: "",
+  date: "",
   category: "",
   amount: "",
 };
@@ -24,17 +28,41 @@ const TransactionForm: FC<Props> = ({
   existingTransaction = initialState,
   onSubmit,
 }) => {
+  const dispatch = useAppDispatch();
+  const categories = useAppSelector(selectCategories);
   const [transaction, setTransaction] =
     useState<TransactionMutation>(existingTransaction);
+  const [type, setType] = useState<string>("");
+
+  useEffect(() => {
+    dispatch(fetchCategories());
+  }, [type, dispatch]);
 
   const onChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setTransaction((prev) => ({ ...prev, [name]: value }));
   };
 
+  const onTypeChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    const { value } = e.target;
+    setType(value);
+  };
+
+  const categoryOptions = categories
+    .filter((category) => category.type === type)
+    .map((category) => (
+      <option key={category.id} value={category.id}>
+        {category.name}
+      </option>
+    ));
+
   const onFormSubmit = (e: FormEvent) => {
     e.preventDefault();
-    onSubmit({ ...transaction, amount: parseInt(transaction.amount) });
+    onSubmit({
+      ...transaction,
+      amount: parseInt(transaction.amount),
+      date: convertDate(new Date()),
+    });
     setTransaction(initialState);
   };
 
@@ -46,8 +74,8 @@ const TransactionForm: FC<Props> = ({
           name="type"
           id="type"
           className="form-select"
-          value={transaction.type}
-          onChange={onChange}
+          value={type}
+          onChange={onTypeChange}
           required
         >
           <option value="" disabled>
@@ -70,7 +98,7 @@ const TransactionForm: FC<Props> = ({
           <option value="" disabled>
             Please select category
           </option>
-          <option value="food">Food</option>
+          {categoryOptions}
         </select>
       </div>
       <div className="form-group mb-2">
