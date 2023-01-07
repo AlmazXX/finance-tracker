@@ -31,7 +31,7 @@ const TransactionItem: FC<Props> = ({ transaction }) => {
           }`}
         >
           <strong>
-            {transaction.type === "expense" ? "-" : ""} {transaction.amount}
+            {transaction.type === "income" ? "+" : "-"} {transaction.amount}
           </strong>{" "}
           {currency}
         </p>
