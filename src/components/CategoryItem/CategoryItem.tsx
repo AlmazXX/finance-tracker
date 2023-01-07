@@ -25,11 +25,11 @@ const CategoryItem: FC<Props> = ({ category }) => {
   return (
     <div className="card" style={{ maxWidth: "540px" }}>
       <div className="card-body">
-        <div className="row align-items-center">
-          <div className="col col-sm-3">
+        <div className="row align-items-center justify-content-between">
+          <div className="col">
             <h5 className="card-title">{category.name}</h5>
           </div>
-          <div className="col col-sm-3">
+          <div className="col">
             <p
               className={`card-text ${
                 category.type === "income" ? "text-success" : "text-danger"
@@ -38,7 +38,7 @@ const CategoryItem: FC<Props> = ({ category }) => {
               {capitalize(category.type)}
             </p>
           </div>
-          <div className="col-12 col-sm-6">
+          <div className="col col-sm-5">
             <div className="d-flex gap-3">
               <Link
                 to={`/edit-category/${category.id}`}
