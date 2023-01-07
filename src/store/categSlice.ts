@@ -1,18 +1,30 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../app/store";
-import { ApiCategory } from "../types";
-import { createCategory, fetchCategories } from "./categThunk";
+import { ApiCategory, Category } from "../types";
+import {
+  createCategory,
+  deleteCategory,
+  editCategory,
+  fetchCategories,
+  fetchOneCategory,
+} from "./categThunk";
 
 interface CategState {
   oneIsSubmitted: "idle" | "pending" | "success" | "failure";
   list: ApiCategory[];
   listIsreceived: "idle" | "pending" | "success" | "failure";
+  one: Category | null;
+  oneReceived: "idle" | "pending" | "success" | "failure";
+  oneDeleted: string | false;
 }
 
 const initialState: CategState = {
   oneIsSubmitted: "idle",
   list: [],
   listIsreceived: "idle",
+  one: null,
+  oneReceived: "idle",
+  oneDeleted: "false",
 };
 
 export const categSlice = createSlice({
@@ -39,6 +51,34 @@ export const categSlice = createSlice({
       })
       .addCase(fetchCategories.rejected, (state) => {
         state.listIsreceived = "failure";
+      })
+      .addCase(fetchOneCategory.pending, (state) => {
+        state.oneReceived = "pending";
+      })
+      .addCase(fetchOneCategory.fulfilled, (state, { payload: category }) => {
+        state.oneReceived = "success";
+        state.one = category;
+      })
+      .addCase(fetchOneCategory.rejected, (state) => {
+        state.oneReceived = "failure";
+      })
+      .addCase(editCategory.pending, (state) => {
+        state.oneIsSubmitted = "pending";
+      })
+      .addCase(editCategory.fulfilled, (state) => {
+        state.oneIsSubmitted = "success";
+      })
+      .addCase(editCategory.rejected, (state) => {
+        state.oneIsSubmitted = "failure";
+      })
+      .addCase(deleteCategory.pending, (state, { meta }) => {
+        state.oneDeleted = meta.arg;
+      })
+      .addCase(deleteCategory.fulfilled, (state) => {
+        state.oneDeleted = false;
+      })
+      .addCase(deleteCategory.rejected, (state) => {
+        state.oneDeleted = false;
       }),
 });
 
@@ -48,3 +88,8 @@ export const selectCategoryIsSubmitted = (state: RootState) =>
 export const selectCategories = (state: RootState) => state.category.list;
 export const selectCategoriesReceived = (state: RootState) =>
   state.category.listIsreceived;
+export const selectOneCategory = (state: RootState) => state.category.one;
+export const selectOneCategoryReceived = (state: RootState) =>
+  state.category.oneReceived;
+export const selectOneCategoryDeleted = (state: RootState) =>
+  state.category.oneDeleted;
