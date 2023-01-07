@@ -16,9 +16,11 @@ const TransactionItem: FC<Props> = ({ transaction }) => {
   const transactionDeleted = useAppSelector(selectOneTransactionDeleted);
 
   const onDelete = async () => {
-    await dispatch(deleteTransaction(transaction.id));
-    dispatch(fetchTransactions());
-  }
+    if (window.confirm("Do you really want to delete this transaction?")) {
+      await dispatch(deleteTransaction(transaction.id));
+      dispatch(fetchTransactions());
+    }
+  };
 
   return (
     <div className="card" style={{ maxWidth: "540px" }}>
