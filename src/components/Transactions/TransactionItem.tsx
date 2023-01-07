@@ -1,6 +1,9 @@
-import { FC } from "react";
+import { FC, useCallback } from "react";
 import { Link } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { currency } from "../../constants";
+import { selectOneTransactionDeleted } from "../../store/transSlice";
+import { deleteTransaction, fetchTransactions } from "../../store/transThunk";
 import { ApiTransaction } from "../../types";
 import BtnSpinner from "../Spinner/BtnSpinner";
 
@@ -9,6 +12,14 @@ interface Props {
 }
 
 const TransactionItem: FC<Props> = ({ transaction }) => {
+  const dispatch = useAppDispatch();
+  const transactionDeleted = useAppSelector(selectOneTransactionDeleted);
+
+  const onDelete = useCallback(async () => {
+    await dispatch(deleteTransaction(transaction.id));
+    dispatch(fetchTransactions());
+  }, [dispatch, transaction.id]);
+
   return (
     <div className="card" style={{ maxWidth: "540px" }}>
       <div className="card-body">
@@ -25,11 +36,20 @@ const TransactionItem: FC<Props> = ({ transaction }) => {
           {currency}
         </p>
         <div className="d-flex gap-3">
-          <Link to={`edit/${transaction.id}`} className={`btn btn-primary `}>
-            {<BtnSpinner />}Edit
+          <Link
+            to={`edit/${transaction.id}`}
+            className={`btn btn-primary ${
+              transactionDeleted === transaction.id ? "disabled" : ""
+            }`}
+          >
+            {transactionDeleted === transaction.id && <BtnSpinner />}Edit
           </Link>
-          <button className="btn btn-outline-danger">
-            {<BtnSpinner />}Delete
+          <button
+            className="btn btn-outline-danger"
+            onClick={onDelete}
+            disabled={transactionDeleted === transaction.id}
+          >
+            {transactionDeleted === transaction.id && <BtnSpinner />}Delete
           </button>
         </div>
       </div>
