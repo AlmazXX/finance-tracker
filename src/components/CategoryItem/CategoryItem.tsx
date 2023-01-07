@@ -15,8 +15,10 @@ const CategoryItem: FC<Props> = ({ category }) => {
   const categoryDeleted = useAppSelector(selectOneCategoryDeleted);
 
   const onDelete = async () => {
-    await dispatch(deleteCategory(category.id));
-    dispatch(fetchCategories());
+    if (window.confirm("Do you really want to delete this category")) {
+      await dispatch(deleteCategory(category.id));
+      dispatch(fetchCategories());
+    }
   };
 
   return (
