@@ -23,7 +23,7 @@ const Transactions = () => {
         <Spinner />
       ) : (
         transactions.map((transaction) => (
-          <TransactionItem transaction={transaction} />
+          <TransactionItem key={transaction.id} transaction={transaction} />
         ))
       )}
     </div>
