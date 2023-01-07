@@ -4,6 +4,10 @@ export const convertDate = (date: Date) => {
     month: "numeric",
     year: "numeric",
     hour: "numeric",
-    minute: "numeric"
+    minute: "numeric",
   });
+};
+
+export const capitalize = (str: string) => {
+  return str[0].toUpperCase() + str.slice(1).toLowerCase();
 };
