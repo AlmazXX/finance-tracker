@@ -33,6 +33,16 @@ export const fetchTransactions = createAsyncThunk<ApiTransaction[]>(
   }
 );
 
+export const fetchOneTransaction = createAsyncThunk<ApiTransaction, string>(
+  "transaction/fetchOne",
+  async (id) => {
+    const { data } = await axiosApi.get<ApiTransaction>(
+      `/transactions/${id}.json`
+    );
+    return data;
+  }
+);
+
 export const editTransaction = createAsyncThunk(
   "transaction/edit",
   async ({ id, category }: { id: string; category: Category }) => {
