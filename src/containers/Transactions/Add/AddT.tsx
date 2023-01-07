@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch } from "../../app/hooks";
-import TransactionForm from "../../components/TransactionForm/TransactionForm";
-import { createTransaction } from "../../store/transThunk";
-import { Transaction } from "../../types";
+import { useAppDispatch } from "../../../app/hooks";
+import TransactionForm from "../../../components/TransactionForm/TransactionForm";
+import { createTransaction } from "../../../store/transThunk";
+import { Transaction } from "../../../types";
 
 const AddT = () => {
   const dispatch = useAppDispatch();

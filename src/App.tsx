@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import Layout from "./components/Layout/Layout";
-import AddT from "./containers/AddTransaction/AddT";
-import AddC from "./containers/Categories/AddCategories/AddC";
+import AddT from "./containers/Transactions/Add/AddT";
+import AddC from "./containers/Categories/Add/AddC";
 import Categories from "./containers/Categories/Categories";
 import Home from "./containers/Home/Home";
 
