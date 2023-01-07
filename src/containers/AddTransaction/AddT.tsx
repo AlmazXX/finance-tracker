@@ -1,32 +1,32 @@
-import { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
-import { useAppDispatch } from '../../app/hooks';
-import Modal from '../../components/Modal/Modal';
-import TransactionForm from '../../components/TransactionForm/TransactionForm';
-import { close } from "../../store/modalSlice";
-import { createTransaction } from '../../store/transThunk';
-import { Transaction } from '../../types';
+import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../../app/hooks";
+import TransactionForm from "../../components/TransactionForm/TransactionForm";
+import { createTransaction } from "../../store/transThunk";
+import { Transaction } from "../../types";
 
-const CreateT = () => {
+const AddT = () => {
   const dispatch = useAppDispatch();
-  const {pathname} = useLocation();
-
-  useEffect(() => {
-    if (pathname !== '/') {
-      dispatch(close())
-    }
-  }, [pathname, dispatch])
+  const navigate = useNavigate();
 
   const onSubmit = async (transaction: Transaction) => {
     await dispatch(createTransaction(transaction));
-    dispatch(close())
-  }
-  
+    navigate("/");
+  };
+
   return (
-    <Modal title="Add Expense/Income">
-      <TransactionForm onSubmit={onSubmit}/>
-    </Modal>
+    <>
+      <div className="row mt-3">
+        <div className="col">
+          <h2>Create transaction</h2>
+        </div>
+      </div>
+      <div className="row">
+        <div className="col">
+          <TransactionForm onSubmit={onSubmit} />
+        </div>
+      </div>
+    </>
   );
 };
 
-export default CreateT;
+export default AddT;
