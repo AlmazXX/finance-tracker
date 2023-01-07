@@ -24,7 +24,7 @@ const CreateT = () => {
   
   return (
     <Modal title="Add Expense/Income">
-      <TransactionForm/>
+      <TransactionForm onSubmit={onSubmit}/>
     </Modal>
   );
 };
