@@ -1,6 +1,9 @@
 import { ChangeEvent, FC, FormEvent, useState } from "react";
 import { Link } from "react-router-dom";
+import { useAppSelector } from "../../app/hooks";
+import { selectCategoryIsSubmitted } from "../../store/categSlice";
 import { Category } from "../../types";
+import BtnSpinner from "../Spinner/BtnSpinner";
 
 interface Props {
   existingCategory?: Category;
@@ -16,6 +19,7 @@ const CategoryForm: FC<Props> = ({
   existingCategory = initialState,
   onSubmit,
 }) => {
+  const categoryIsSubmitted = useAppSelector(selectCategoryIsSubmitted);
   const [category, setCategory] = useState<Category>(existingCategory);
 
   const onChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -58,9 +62,19 @@ const CategoryForm: FC<Props> = ({
         </select>
       </div>
       <div className="d-flex gap-3">
-        <button className="btn btn-primary">Submit</button>
-        <Link to="/categories" className="btn btn-outline-danger">
-          Cancel
+        <button
+          className="btn btn-primary"
+          disabled={categoryIsSubmitted === "pending"}
+        >
+          {categoryIsSubmitted === "pending" && <BtnSpinner />}Submit
+        </button>
+        <Link
+          to="/categories"
+          className={`btn btn-outline-danger ${
+            categoryIsSubmitted === "pending" ? "disabled" : ""
+          }`}
+        >
+          {categoryIsSubmitted === "pending" && <BtnSpinner />}Cancel
         </Link>
       </div>
     </form>
