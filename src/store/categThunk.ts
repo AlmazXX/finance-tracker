@@ -36,5 +36,13 @@ export const deleteCategory = createAsyncThunk(
   "category/delete",
   async (id: string) => {
     await axiosApi.delete(`/categories/${id}.json`);
+    const { data } = await axiosApi.get(
+      `/transactions.json?orderBy="category"&equalTo="${id}"`
+    );
+    Promise.all(
+      Object.keys(data).map(
+        async (id) => await axiosApi.delete(`/transactions/${id}.json`)
+      )
+    );
   }
 );
