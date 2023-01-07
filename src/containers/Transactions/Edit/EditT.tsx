@@ -47,8 +47,9 @@ const EditT = () => {
             <Spinner />
           ) : existingTransaction ? (
             <TransactionForm
-              onSubmit={onSubmit}
+              existingType={transaction.type}
               existingTransaction={existingTransaction}
+              onSubmit={onSubmit}
             />
           ) : (
             <p>Transaction is not found</p>
