@@ -1,6 +1,11 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { axiosApi } from "../axiosApi";
-import { ApiTransaction, Transaction, TransactionsCategories } from "../types";
+import {
+  ApiTransaction,
+  Category,
+  Transaction,
+  TransactionsCategories,
+} from "../types";
 
 export const createTransaction = createAsyncThunk(
   "transaction/create",
@@ -29,13 +34,17 @@ export const fetchTransactions = createAsyncThunk<ApiTransaction[]>(
   }
 );
 
-export const fetchOneTransaction = createAsyncThunk<Transaction, string>(
+export const fetchOneTransaction = createAsyncThunk<ApiTransaction, string>(
   "transaction/fetchOne",
   async (id) => {
-    const { data } = await axiosApi.get<Transaction>(
+    const transaction = await axiosApi.get<Transaction>(
       `/transactions/${id}.json`
     );
-    return data;
+    const category = await axiosApi.get<Category>(
+      `categories/${transaction.data.category}.json`
+    );
+
+    return { ...transaction.data, id, type: category.data.type };
   }
 );
 
