@@ -30,7 +30,9 @@ const Categories = () => {
             {categoriesReceived === "pending" ? (
               <Spinner />
             ) : (
-              categories.map((category) => <CategoryItem category={category} />)
+              categories.map((category) => (
+                <CategoryItem key={category.id} category={category} />
+              ))
             )}
           </div>
         </div>
