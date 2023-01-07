@@ -2,7 +2,6 @@ import { ChangeEvent, FC, FormEvent, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { currency } from "../../constants";
-import { convertDate } from "../../helpers";
 import { selectCategories } from "../../store/categSlice";
 import { fetchCategories } from "../../store/categThunk";
 import { selectTransactionIsSubmitted } from "../../store/transSlice";
@@ -61,7 +60,7 @@ const TransactionForm: FC<Props> = ({
     onSubmit({
       ...transaction,
       amount: parseInt(transaction.amount),
-      date: convertDate(new Date()),
+      date: new Date().toISOString(),
     });
     setTransaction(initialState);
   };
