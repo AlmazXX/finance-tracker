@@ -16,6 +16,7 @@ interface TransactionMutation {
 }
 
 interface Props {
+  existingType?: "income" | "expense";
   existingTransaction?: TransactionMutation;
   onSubmit: (transaction: Transaction) => void;
 }
@@ -27,6 +28,7 @@ const initialState = {
 };
 
 const TransactionForm: FC<Props> = ({
+  existingType = "income",
   existingTransaction = initialState,
   onSubmit,
 }) => {
@@ -35,7 +37,7 @@ const TransactionForm: FC<Props> = ({
   const categories = useAppSelector(selectCategories);
   const [transaction, setTransaction] =
     useState<TransactionMutation>(existingTransaction);
-  const [type, setType] = useState<string>("");
+  const [type, setType] = useState<string>(existingType);
 
   useEffect(() => {
     dispatch(fetchCategories());
@@ -44,11 +46,6 @@ const TransactionForm: FC<Props> = ({
   const onChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setTransaction((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const onTypeChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    const { value } = e.target;
-    setType(value);
   };
 
   const categoryOptions = categories
@@ -78,12 +75,8 @@ const TransactionForm: FC<Props> = ({
           id="type"
           className="form-select"
           value={type}
-          onChange={onTypeChange}
-          required
+          onChange={(e) => setType(e.target.value)}
         >
-          <option value="" disabled>
-            Please select type
-          </option>
           <option value="income">Income</option>
           <option value="expense">Expense</option>
         </select>
