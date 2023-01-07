@@ -1,19 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../app/store";
-import { ApiTransaction } from "../types";
+import { ApiTransaction, Transaction } from "../types";
 import {
   createTransaction,
   deleteTransaction,
   editTransaction,
   fetchOneTransaction,
-  fetchTransactions,
+  fetchTransactions
 } from "./transThunk";
 
 interface transState {
   oneIsSubmitted: "idle" | "pending" | "success" | "failure";
   list: ApiTransaction[];
   listReceived: "idle" | "pending" | "success" | "failure";
-  one: ApiTransaction | null;
+  one: Transaction | null;
   oneReceived: "idle" | "pending" | "success" | "failure";
   oneDeleted: string | false;
 }
