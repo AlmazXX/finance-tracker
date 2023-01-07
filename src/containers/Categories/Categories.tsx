@@ -29,10 +29,12 @@ const Categories = () => {
           <div className="d-flex flex-column gap-3">
             {categoriesReceived === "pending" ? (
               <Spinner />
-            ) : (
+            ) : categories.length ? (
               categories.map((category) => (
                 <CategoryItem key={category.id} category={category} />
               ))
+            ) : (
+              <p>No categories created</p>
             )}
           </div>
         </div>
