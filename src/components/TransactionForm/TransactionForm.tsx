@@ -1,19 +1,44 @@
+import { ChangeEvent, useState } from "react";
 import { useAppDispatch } from "../../app/hooks";
 import { currency } from "../../constants";
 import { close } from "../../store/modalSlice";
-import Modal from "../Modal/Modal";
+
+interface TransactionMutation {
+  type: string;
+  category: string;
+  amount: string;
+}
+
+const initialState = {
+  type: "",
+  category: "",
+  amount: "",
+};
 
 const TransactionForm = () => {
   const dispatch = useAppDispatch();
+  const [transaction, setTransaction] =
+    useState<TransactionMutation>(initialState);
+
+  const onChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setTransaction((prev) => ({ ...prev, [name]: value }));
+  };
 
   return (
-    <Modal title="Add Expense/Income">
       <form>
         <div className="modal-body">
           <div className="form-group mb-2">
             <label htmlFor="type">Type</label>
-            <select name="type" id="type" className="form-control" required>
-              <option value="" disabled selected>
+            <select
+              name="type"
+              id="type"
+              className="form-select"
+              value={transaction.type}
+              onChange={onChange}
+              required
+            >
+              <option value="" disabled>
                 Please select type
               </option>
               <option value="income">Income</option>
@@ -25,10 +50,12 @@ const TransactionForm = () => {
             <select
               name="category"
               id="category"
-              className="form-control"
+              className="form-select"
+              value={transaction.category}
+              onChange={onChange}
               required
             >
-              <option value="" disabled selected>
+              <option value="" disabled>
                 Please select category
               </option>
             </select>
@@ -36,7 +63,13 @@ const TransactionForm = () => {
           <div className="form-group mb-2">
             <label htmlFor="amount">Amount</label>
             <div className="input-group">
-              <input type="number" className="form-control" required />
+              <input
+                type="number"
+                className="form-control"
+                value={transaction.amount}
+                onChange={onChange}
+                required
+              />
               <span className="input-group-text">{currency}</span>
             </div>
           </div>
@@ -53,7 +86,6 @@ const TransactionForm = () => {
           </button>
         </div>
       </form>
-    </Modal>
   );
 };
 
