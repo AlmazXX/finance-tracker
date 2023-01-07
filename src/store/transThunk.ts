@@ -20,7 +20,7 @@ export const fetchTransactions = createAsyncThunk<ApiTransaction[]>(
     const { data } = await axiosApi.get<TransactionsCategories>(".json");
     const transactions = data.transactions;
     const categories = data.categories;
-    return data
+    return transactions
       ? Object.keys(transactions)
           .map((id) => ({
             ...transactions[id],
