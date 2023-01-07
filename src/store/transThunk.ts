@@ -17,6 +17,7 @@ export const fetchTransactions = createAsyncThunk<ApiTransaction[]>(
     const categories = data.categories;
     return transactions
       ? Object.keys(transactions)
+          .filter((id) => transactions[id].category in categories)
           .map((id) => ({
             ...transactions[id],
             category: categories[transactions[id].category].name,
