@@ -1,4 +1,4 @@
-import { FC, useCallback } from "react";
+import { FC } from "react";
 import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { currency } from "../../constants";
@@ -15,10 +15,10 @@ const TransactionItem: FC<Props> = ({ transaction }) => {
   const dispatch = useAppDispatch();
   const transactionDeleted = useAppSelector(selectOneTransactionDeleted);
 
-  const onDelete = useCallback(async () => {
+  const onDelete = async () => {
     await dispatch(deleteTransaction(transaction.id));
     dispatch(fetchTransactions());
-  }, [dispatch, transaction.id]);
+  }
 
   return (
     <div className="card" style={{ maxWidth: "540px" }}>
