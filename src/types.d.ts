@@ -5,11 +5,12 @@ export interface Transaction {
 }
 
 export interface TransactionsList {
-  [key: string]: Transaction
+  [key: string]: Transaction;
 }
 
 export interface ApiTransaction extends Transaction {
   id: string;
+  type: "income" | "expense";
 }
 
 export interface Category {
@@ -18,8 +19,13 @@ export interface Category {
 }
 
 export interface CategoriesList {
-  [key: string]: Category
+  [key: string]: Category;
 }
 export interface ApiCategory extends Category {
   id: string;
+}
+
+export interface TransactionsCategories {
+  transactions: TransactionsList;
+  categories: CategoriesList;
 }
