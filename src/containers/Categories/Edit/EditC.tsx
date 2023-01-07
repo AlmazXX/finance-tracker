@@ -23,7 +23,7 @@ const EditC = () => {
 
   const onSubmit = async (category: Category) => {
     await dispatch(editCategory({ id, category }));
-    navigate("/");
+    navigate("/categories");
   };
   return (
     <>
