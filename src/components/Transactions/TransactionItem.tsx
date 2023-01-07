@@ -37,7 +37,7 @@ const TransactionItem: FC<Props> = ({ transaction }) => {
         </p>
         <div className="d-flex gap-3">
           <Link
-            to={`edit/${transaction.id}`}
+            to={`edit-transaction/${transaction.id}`}
             className={`btn btn-primary ${
               transactionDeleted === transaction.id ? "disabled" : ""
             }`}
