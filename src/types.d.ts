@@ -4,6 +4,14 @@ export interface Transaction {
   amount: number;
 }
 
+export interface TransactionsList {
+  [key: string]: Transaction
+}
+
+export interface ApiTransaction extends Transaction {
+  id: string;
+}
+
 export interface Category {
   type: "income" | "expense";
   name: string;
