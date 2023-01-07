@@ -2,6 +2,7 @@ import { FC } from "react";
 import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { currency } from "../../constants";
+import { convertDate } from "../../helpers";
 import { selectOneTransactionDeleted } from "../../store/transSlice";
 import { deleteTransaction, fetchTransactions } from "../../store/transThunk";
 import { ApiTransaction } from "../../types";
@@ -25,7 +26,7 @@ const TransactionItem: FC<Props> = ({ transaction }) => {
   return (
     <div className="card" style={{ maxWidth: "540px" }}>
       <div className="card-body">
-        <p className="card-text float-end">{transaction.date}</p>
+        <p className="card-text float-end">{convertDate(transaction.date)}</p>
         <h5 className="card-title">{transaction.category}</h5>
         <p
           className={`card-text ${
