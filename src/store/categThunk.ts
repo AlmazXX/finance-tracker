@@ -16,3 +16,25 @@ export const fetchCategories = createAsyncThunk<ApiCategory[]>(
     return data ? Object.keys(data).map((id) => ({ ...data[id], id })) : [];
   }
 );
+
+export const fetchOneCategory = createAsyncThunk<Category, string>(
+  "category/fetchOne",
+  async (id) => {
+    const { data } = await axiosApi.get<Category>(`/categories/${id}.json`);
+    return data;
+  }
+);
+
+export const editCategory = createAsyncThunk(
+  "category/edit",
+  async ({ id, category }: { id: string; category: Category }) => {
+    await axiosApi.put(`/categories/${id}.json`, category);
+  }
+);
+
+export const deleteCategory = createAsyncThunk(
+  "category/delete",
+  async (id: string) => {
+    await axiosApi.delete(`/categories/${id}.json`);
+  }
+);
