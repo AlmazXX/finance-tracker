@@ -5,7 +5,9 @@ import { currency } from "../../constants";
 import { convertDate } from "../../helpers";
 import { selectCategories } from "../../store/categSlice";
 import { fetchCategories } from "../../store/categThunk";
+import { selectTransactionIsSubmitted } from "../../store/transSlice";
 import { Transaction } from "../../types";
+import BtnSpinner from "../Spinner/BtnSpinner";
 
 interface TransactionMutation {
   date: string;
@@ -29,6 +31,7 @@ const TransactionForm: FC<Props> = ({
   onSubmit,
 }) => {
   const dispatch = useAppDispatch();
+  const transactionSubmitted = useAppSelector(selectTransactionIsSubmitted);
   const categories = useAppSelector(selectCategories);
   const [transaction, setTransaction] =
     useState<TransactionMutation>(existingTransaction);
@@ -116,11 +119,20 @@ const TransactionForm: FC<Props> = ({
         </div>
       </div>
       <div className="d-flex gap-3">
-        <button type="submit" className="btn btn-primary">
-          Submit
+        <button
+          type="submit"
+          className="btn btn-primary"
+          disabled={transactionSubmitted === "pending"}
+        >
+          {transactionSubmitted === "pending" && <BtnSpinner />}Submit
         </button>
-        <Link to="/" className="btn btn-outline-danger">
-          Cancel
+        <Link
+          to="/"
+          className={`btn btn-outline-danger ${
+            transactionSubmitted === "pending" ? "disabled" : ""
+          }`}
+        >
+          {transactionSubmitted === "pending" && <BtnSpinner />}Cancel
         </Link>
       </div>
     </form>
