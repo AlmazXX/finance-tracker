@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { capitalize } from "../../helpers";
 import { selectOneCategoryDeleted } from "../../store/categSlice";
 import { deleteCategory, fetchCategories } from "../../store/categThunk";
 import { ApiCategory } from "../../types";
@@ -34,7 +35,7 @@ const CategoryItem: FC<Props> = ({ category }) => {
                 category.type === "income" ? "text-success" : "text-danger"
               }`}
             >
-              {category.type}
+              {capitalize(category.type)}
             </p>
           </div>
           <div className="col-12 col-sm-6">
