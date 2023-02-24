@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { currency } from "../../constants";
+import { clientUrl, currency } from "../../constants";
 import { convertDate } from "../../helpers";
 import { selectOneTransactionDeleted } from "../../store/transSlice";
 import { deleteTransaction, fetchTransactions } from "../../store/transThunk";
@@ -40,7 +40,7 @@ const TransactionItem: FC<Props> = ({ transaction }) => {
         </p>
         <div className="d-flex gap-3">
           <Link
-            to={`edit-transaction/${transaction.id}`}
+            to={clientUrl + "edit-transaction/" + transaction.id}
             className={`btn btn-primary ${
               transactionDeleted === transaction.id ? "disabled" : ""
             }`}

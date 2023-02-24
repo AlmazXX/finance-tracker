@@ -1,7 +1,7 @@
 import { ChangeEvent, FC, FormEvent, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { currency } from "../../constants";
+import { clientUrl, currency } from "../../constants";
 import { selectCategories } from "../../store/categSlice";
 import { fetchCategories } from "../../store/categThunk";
 import { selectTransactionIsSubmitted } from "../../store/transSlice";
@@ -123,7 +123,7 @@ const TransactionForm: FC<Props> = ({
           {transactionSubmitted === "pending" && <BtnSpinner />}Submit
         </button>
         <Link
-          to="/"
+          to={clientUrl}
           className={`btn btn-outline-danger ${
             transactionSubmitted === "pending" ? "disabled" : ""
           }`}

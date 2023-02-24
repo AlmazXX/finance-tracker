@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../../app/hooks";
 import TransactionForm from "../../../components/TransactionForm/TransactionForm";
+import { clientUrl } from "../../../constants";
 import { createTransaction } from "../../../store/transThunk";
 import { Transaction } from "../../../types";
 
@@ -10,7 +11,7 @@ const AddT = () => {
 
   const onSubmit = async (transaction: Transaction) => {
     await dispatch(createTransaction(transaction));
-    navigate("/");
+    navigate(clientUrl + "/");
   };
 
   return (

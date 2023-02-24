@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../../app/hooks";
 import CategoryForm from "../../../components/CategoryForm/CategoryForm";
+import { clientUrl } from "../../../constants";
 import { createCategory } from "../../../store/categThunk";
 import { Category } from "../../../types";
 
@@ -10,7 +11,7 @@ const AddC = () => {
 
   const onSubmit = async (category: Category) => {
     await dispatch(createCategory(category));
-    navigate("/categories");
+    navigate(clientUrl + "/categories");
   };
 
   return (

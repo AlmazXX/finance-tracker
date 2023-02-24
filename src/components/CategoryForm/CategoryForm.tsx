@@ -1,6 +1,7 @@
 import { ChangeEvent, FC, FormEvent, useState } from "react";
 import { Link } from "react-router-dom";
 import { useAppSelector } from "../../app/hooks";
+import { clientUrl } from "../../constants";
 import { selectCategoryIsSubmitted } from "../../store/categSlice";
 import { Category } from "../../types";
 import BtnSpinner from "../Spinner/BtnSpinner";
@@ -69,7 +70,7 @@ const CategoryForm: FC<Props> = ({
           {categoryIsSubmitted === "pending" && <BtnSpinner />}Submit
         </button>
         <Link
-          to="/categories"
+          to={clientUrl + "/categories"}
           className={`btn btn-outline-danger ${
             categoryIsSubmitted === "pending" ? "disabled" : ""
           }`}

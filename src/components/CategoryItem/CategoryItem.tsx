@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { clientUrl } from "../../constants";
 import { capitalize } from "../../helpers";
 import { selectOneCategoryDeleted } from "../../store/categSlice";
 import { deleteCategory, fetchCategories } from "../../store/categThunk";
@@ -41,7 +42,7 @@ const CategoryItem: FC<Props> = ({ category }) => {
           <div className="col col-sm-5">
             <div className="d-flex gap-3">
               <Link
-                to={`/edit-category/${category.id}`}
+                to={clientUrl + "/edit-category/" + category.id}
                 className={`btn btn-primary ${
                   categoryDeleted === category.id ? "disabled" : ""
                 }`}

@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import Spinner from "../../../components/Spinner/Spinner";
 import TransactionForm from "../../../components/TransactionForm/TransactionForm";
+import { clientUrl } from "../../../constants";
 import {
   selectOneTransaction,
   selectOneTransactionReceived,
@@ -26,7 +27,7 @@ const EditT = () => {
 
   const onSubmit = async (transaction: Transaction) => {
     await dispatch(editTransaction({ id, transaction }));
-    navigate("/");
+    navigate(clientUrl + "/");
   };
 
   const existingTransaction = transaction && {

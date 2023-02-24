@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import CategoryForm from "../../../components/CategoryForm/CategoryForm";
 import Spinner from "../../../components/Spinner/Spinner";
+import { clientUrl } from "../../../constants";
 import {
   selectOneCategory,
   selectOneCategoryReceived,
@@ -23,7 +24,7 @@ const EditC = () => {
 
   const onSubmit = async (category: Category) => {
     await dispatch(editCategory({ id, category }));
-    navigate("/categories");
+    navigate(clientUrl + "/categories");
   };
   return (
     <>
@@ -37,7 +38,10 @@ const EditC = () => {
           {categoryReceived === "pending" ? (
             <Spinner />
           ) : existingCategory ? (
-            <CategoryForm onSubmit={onSubmit} existingCategory={existingCategory} />
+            <CategoryForm
+              onSubmit={onSubmit}
+              existingCategory={existingCategory}
+            />
           ) : (
             <p>Category not found</p>
           )}
