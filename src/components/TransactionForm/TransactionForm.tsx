@@ -42,6 +42,10 @@ const TransactionForm: FC<Props> = ({
     dispatch(fetchCategories());
   }, [type, dispatch]);
 
+  useEffect(() => {
+    setTransaction(initialState)
+  }, [type])
+
   const onChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setTransaction((prev) => ({ ...prev, [name]: value }));
