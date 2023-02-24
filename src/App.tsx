@@ -1,11 +1,12 @@
 import { Route, Routes } from "react-router-dom";
 import Layout from "./components/Layout/Layout";
-import AddT from "./containers/Transactions/Add/AddT";
 import AddC from "./containers/Categories/Add/AddC";
 import Categories from "./containers/Categories/Categories";
-import Home from "./containers/Home/Home";
-import EditT from "./containers/Transactions/Edit/EditT";
 import EditC from "./containers/Categories/Edit/EditC";
+import Home from "./containers/Home/Home";
+import NotFound from "./containers/NotFound/NotFound";
+import AddT from "./containers/Transactions/Add/AddT";
+import EditT from "./containers/Transactions/Edit/EditT";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/categories" element={<Categories />} />
         <Route path="/create-category" element={<AddC />} />
         <Route path="/edit-category/:id" element={<EditC />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Layout>
   );
