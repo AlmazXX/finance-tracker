@@ -45,7 +45,7 @@ const TransactionItem: FC<Props> = ({ transaction }) => {
               transactionDeleted === transaction.id ? "disabled" : ""
             }`}
           >
-            {transactionDeleted === transaction.id && <BtnSpinner />}Edit
+            Edit
           </Link>
           <button
             className="btn btn-outline-danger"

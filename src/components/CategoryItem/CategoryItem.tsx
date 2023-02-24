@@ -46,7 +46,7 @@ const CategoryItem: FC<Props> = ({ category }) => {
                   categoryDeleted === category.id ? "disabled" : ""
                 }`}
               >
-                {categoryDeleted === category.id && <BtnSpinner />}Edit
+                Edit
               </Link>
               <button
                 className="btn btn-outline-danger"
