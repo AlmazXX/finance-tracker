@@ -17,11 +17,13 @@ https://almazxx.github.io/finance-tracker/
 ## Tech Stack
 
 * React
-* Redux
+* Redux Toolkit
 * React Router
 * Axios
 * Typescript
 * Bootstrap
+* Firebase
+
 ## Getting started
 
 ### Prerequisites
